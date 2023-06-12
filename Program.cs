@@ -40,10 +40,7 @@ namespace MultiFactorAuthenticator
             {
                 string plaintext = "DUMMYTEXT";
                 string encryptedstring = Encrypt(foundCert, plaintext);
-                //Console.WriteLine("Encrypted text: " + Environment.NewLine + encryptedstring + Environment.NewLine);
-
                 string decryptedstring = Decrypt(foundCert, encryptedstring);
-                //Console.WriteLine("decrypted text: " + decryptedstring + Environment.NewLine);
                 Console.WriteLine(true);
             }
             else
@@ -54,7 +51,7 @@ namespace MultiFactorAuthenticator
 
 
         /// <summary>
-        /// Mathod to check Smart Card is connected
+        /// Method to check Smart Card is connected
         /// </summary>
         /// <returns></returns>
         public static bool CheckSmartCard()
@@ -75,15 +72,11 @@ namespace MultiFactorAuthenticator
                 string title = "Smart Card not found";
                 MessageBoxButtons buttons = MessageBoxButtons.OKCancel;
                 var msgBox = MessageBox.Show(message, title, buttons, MessageBoxIcon.Error);
-                if (msgBox == DialogResult.OK)
-                {
-                    return true;
-                }
-                else
+                if (msgBox == DialogResult.Cancel)
                 {
                     Environment.Exit(0);
-                    return true;
                 }
+                return true;
             }
         }
 
