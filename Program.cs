@@ -13,7 +13,7 @@ namespace MultiFactorAuthenticator
             bool smartCardMissing = true;
             while (smartCardMissing)
             {
-                CheckSmartCard();
+                smartCardMissing = CheckSmartCard();
             }
 
             // Get Smart Card info
@@ -66,7 +66,7 @@ namespace MultiFactorAuthenticator
             try
             {
                 pubKeyXml = rsaProvider.ToXmlString(false);
-                return true;
+                return false;
             }
             catch
             {
@@ -75,7 +75,7 @@ namespace MultiFactorAuthenticator
                 string title = "Smart Card not found";
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBox.Show(message, title, buttons, MessageBoxIcon.Error);
-                return false;
+                return true;
             }
         }
 
