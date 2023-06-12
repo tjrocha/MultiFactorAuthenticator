@@ -73,9 +73,17 @@ namespace MultiFactorAuthenticator
                 //throw new Exception("Insert your Smart Card!");
                 string message = "Insert your Smart Card and click OK";
                 string title = "Smart Card not found";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                MessageBox.Show(message, title, buttons, MessageBoxIcon.Error);
-                return true;
+                MessageBoxButtons buttons = MessageBoxButtons.OKCancel;
+                var msgBox = MessageBox.Show(message, title, buttons, MessageBoxIcon.Error);
+                if (msgBox == DialogResult.OK)
+                {
+                    return true;
+                }
+                else
+                {
+                    Environment.Exit(0);
+                    return true;
+                }
             }
         }
 
