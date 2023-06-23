@@ -3,17 +3,17 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 
-namespace MultiFactorAuthenticator
+namespace Reclamation.MultiFactorAuthenticator
 {
-    class Program
+    public static class MultiFactorAuthenticator
     {
-        static void Main()
+        public static bool AuthenticateSmartCard()
         {
-            // Check Smart Card exists
-            bool smartCardMissing = true;
-            while (smartCardMissing)
+            // Check Smart Card connected
+            bool smartCardConnected = true;
+            while (smartCardConnected)
             {
-                smartCardMissing = CheckSmartCard();
+                smartCardConnected = IsSmartCardConnected();
             }
 
             // Get Smart Card info
@@ -41,11 +41,11 @@ namespace MultiFactorAuthenticator
                 string plaintext = "DUMMYTEXT";
                 string encryptedstring = Encrypt(foundCert, plaintext);
                 string decryptedstring = Decrypt(foundCert, encryptedstring);
-                Console.WriteLine(true);
+                return true;
             }
             else
             {
-                Console.WriteLine(false);
+                return false;
             }
         }
 
@@ -54,7 +54,7 @@ namespace MultiFactorAuthenticator
         /// Method to check Smart Card is connected
         /// </summary>
         /// <returns></returns>
-        public static bool CheckSmartCard()
+        public static bool IsSmartCardConnected()
         {
             // Acquire public key stored in the default container of the currently inserted card
             CspParameters cspParameters = new CspParameters(1, "Microsoft Base Smart Card Crypto Provider");
@@ -67,7 +67,6 @@ namespace MultiFactorAuthenticator
             }
             catch
             {
-                //throw new Exception("Insert your Smart Card!");
                 string message = "Insert your Smart Card and click OK";
                 string title = "Smart Card not found";
                 MessageBoxButtons buttons = MessageBoxButtons.OKCancel;
