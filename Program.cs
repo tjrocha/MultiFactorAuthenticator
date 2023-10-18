@@ -41,7 +41,7 @@ namespace Reclamation.MultiFactorAuthenticator
                 string plaintext = "DUMMYTEXT";
                 string encryptedstring = Encrypt(foundCert, plaintext);
                 string decryptedstring = Decrypt(foundCert, encryptedstring);
-                return true;
+                return decryptedstring == plaintext;
             }
             else
             {
